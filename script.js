@@ -9,7 +9,6 @@ for (let i = 0; i < columns; i++) {
 }
 
 //players object
-
 let players = [
   {
     name: "Player One",
@@ -45,28 +44,6 @@ function addToken(mark) {
 }
 
 //game logic
-/*
-function gameState(x) {
-  if (x[0][0] === x[0][1] && x[0][0] === x[0][2]) {
-    console.log("You Win");
-  } else if (board[0][0] == board[1][0] && board[0][0] == board[2][0]) {
-    console.log("You Win");
-  } else if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
-    console.log("You Win");
-  } else if (board[0][1] == board[1][1] && board[0][1] == board[2][1]) {
-    console.log("You Win");
-  } else if (board[0][2] == board[1][2] && board[0][2] == board[2][2]) {
-    console.log("You Win");
-  } else if (board[1][0] == board[1][1] && board[1][0] == board[1][2]) {
-    console.log("You Win");
-  } else if (board[2][0] == board[2][1] && board[2][0] == board[2][2]) {
-    console.log("You Win");
-  } else if (board[2][0] == board[1][1] && board[2][0] == board[0][2]) {
-    console.log("You Win");
-  } else {
-    console.log("It is a tie");
-  }
-}*/
 
 function gameState(board) {
   // Check rows
@@ -112,4 +89,17 @@ function gameState(board) {
   }
 
   console.log("It is a tie");
+}
+
+//check empty cells function
+function checkEmpty(arr) {
+  arr.forEach((element) => {
+    element.forEach((cell) => {
+      if (cell == null) {
+        console.log("Empty Cell");
+      } else {
+        gameState(arr);
+      }
+    });
+  });
 }
