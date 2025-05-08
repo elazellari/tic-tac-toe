@@ -103,3 +103,17 @@ function checkEmpty(arr) {
     });
   });
 }
+
+//interacting with the board
+function playGame() {
+  const cell = document.querySelector(".cell");
+  cell.addEventListener("click", () => {
+    const h2 = document.createElement("h2");
+    h2.innerText = currentPlayer.token;
+    cell.appendChild(h2);
+    changeTurn();
+    console.log(currentPlayer.name);
+  });
+}
+
+playGame();
