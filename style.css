@@ -8,4 +8,7 @@
 .cell {
     border: 2px solid black;
     padding: 20px;
+    text-align: center;
+    font-size: large;
 }
+

@@ -27,20 +27,20 @@ function changeTurn() {
     currentPlayer === players[0] ? players[1] : players[0]);
 }
 
-//test function to fill board
-function addToken(mark) {
-  if (mark === 1) {
-    board[0][0] = 1;
-    console.log(board);
-  } else if (mark === 2) {
-    console.log(board);
-    board[0][1] = 2;
-  } else if (mark === 3) {
-    console.log(board);
-    board[0][2] = 3;
-  } else {
-    console.log("Invalid");
+//function to reset game
+function resetGame() {
+  board = [];
+  for (let i = 0; i < columns; i++) {
+    board.push[(null, null, null)];
   }
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.innerHTML = ""; // remove X or O
+    cell.style.pointerEvents = "auto"; // re-enable click
+  });
+
+  // Reset to first player
+  currentPlayer = players[0];
 }
 
 //game logic
@@ -53,7 +53,8 @@ function gameState(board) {
       board[i][0] === board[i][1] &&
       board[i][0] === board[i][2]
     ) {
-      console.log("You Win");
+      console.log(`${currentPlayer.name} wins`);
+      resetGame();
       return;
     }
   }
@@ -65,7 +66,8 @@ function gameState(board) {
       board[0][i] === board[1][i] &&
       board[0][i] === board[2][i]
     ) {
-      console.log("You Win");
+      console.log(`${currentPlayer.name} wins`);
+      resetGame();
       return;
     }
   }
@@ -76,7 +78,8 @@ function gameState(board) {
     board[0][0] === board[1][1] &&
     board[0][0] === board[2][2]
   ) {
-    console.log("You Win");
+    console.log(`${currentPlayer.name} wins`);
+    resetGame();
     return;
   }
   if (
@@ -84,11 +87,16 @@ function gameState(board) {
     board[0][2] === board[1][1] &&
     board[0][2] === board[2][0]
   ) {
-    console.log("You Win");
+    console.log(`${currentPlayer.name} wins`);
+    resetGame();
     return;
   }
 
-  console.log("It is a tie");
+  let isTie = board.flat().every((cell) => cell !== null);
+  if (isTie) {
+    console.log("It's a tie");
+    resetGame();
+  }
 }
 
 //check empty cells function
@@ -105,7 +113,7 @@ function checkEmpty(arr) {
 }
 
 //interacting with the board
-function playGame() {
+/*function playGame() {
   const cells = document.querySelectorAll(".cell");
   cells.forEach(function (cell) {
     cell.addEventListener("click", () => {
@@ -114,6 +122,34 @@ function playGame() {
       cell.appendChild(h2);
       changeTurn();
       console.log(currentPlayer.name);
+    });
+  });
+}*/
+
+function playGame() {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach(function (cell) {
+    cell.addEventListener("click", () => {
+      const row = parseInt(cell.getAttribute("data-row"));
+      const col = parseInt(cell.getAttribute("data-col"));
+
+      // Prevent overwriting cell
+      if (board[row][col] !== null) return;
+
+      // Update visual
+      const h2 = document.createElement("h2");
+      h2.innerText = currentPlayer.token;
+      cell.appendChild(h2);
+      cell.style.pointerEvents = "none";
+
+      // Update board data
+      board[row][col] = currentPlayer.token;
+
+      // Check game state
+      gameState(board);
+
+      // Switch turn
+      changeTurn();
     });
   });
 }
