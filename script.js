@@ -29,18 +29,20 @@ function changeTurn() {
 
 //function to reset game
 function resetGame() {
-  board = [];
-  for (let i = 0; i < columns; i++) {
-    board.push[(null, null, null)];
-  }
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach((cell) => {
-    cell.innerHTML = ""; // remove X or O
-    cell.style.pointerEvents = "auto"; // re-enable click
-  });
+  setTimeout(() => {
+    board = [];
+    for (let i = 0; i < columns; i++) {
+      board.push[(null, null, null)];
+    }
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.innerHTML = ""; // remove X or O
+      cell.style.pointerEvents = "auto"; // re-enable click
+    });
 
-  // Reset to first player
-  currentPlayer = players[0];
+    // Reset to first player
+    currentPlayer = players[0];
+  }, 2000);
 }
 
 //game logic
@@ -111,20 +113,6 @@ function checkEmpty(arr) {
     });
   });
 }
-
-//interacting with the board
-/*function playGame() {
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach(function (cell) {
-    cell.addEventListener("click", () => {
-      const h2 = document.createElement("h2");
-      h2.innerText = currentPlayer.token;
-      cell.appendChild(h2);
-      changeTurn();
-      console.log(currentPlayer.name);
-    });
-  });
-}*/
 
 function playGame() {
   const cells = document.querySelectorAll(".cell");
